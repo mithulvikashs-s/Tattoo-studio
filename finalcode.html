@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIBI Tattoo Studio | Tirupur</title>
+<link rel="icon" href="images/sibilogo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0e0c0b;
+    --black-soft: #161311;
+    --cream: #e8d4b8;
+    --orange: #d9711f;
+    --orange-bright: #e8842f;
+    --gold: #d4a843;
+    --red-deep: #a8312f;
+    --teal-accent: #2c6e6b;
+    --grey-text: #b8b2ac;
+
+    /* per-section distinct dark color tones */
+    --tone-about: #241b14;      /* deep umber brown */
+    --tone-artist: #1c1428;     /* deep plum/violet */
+    --tone-services: #142420;   /* deep forest teal */
+    --tone-gallery: #14181f;    /* deep navy slate */
+    --tone-contact: #2a1414;    /* deep wine red */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--black);
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---- NAV ---- */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 6%;
+    background: linear-gradient(180deg, rgba(14,12,11,0.85) 0%, rgba(14,12,11,0) 100%);
+    transition: background 0.3s ease;
+    gap: 20px;
+  }
+
+  .navbar.scrolled {
+    background: rgba(14,12,11,0.95);
+    border-bottom: 1px solid rgba(232,212,184,0.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .nav-logo img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .nav-logo:hover img {
+    transform: rotate(8deg) scale(1.05);
+  }
+
+  .nav-logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--cream);
+  }
+
+  .nav-logo-text span { color: var(--orange-bright); }
+
+  .nav-links {
+    display: flex;
+    gap: 38px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.25s;
+    white-space: nowrap;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    width: 0; height: 2px;
+    background: var(--orange-bright);
+    transition: width 0.25s ease;
+  }
+
+  .nav-links a:hover { color: var(--orange-bright); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ---- HAMBURGER (mobile/tablet only) ---- */
+  .hamburger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(232,212,184,0.06);
+    border: 1px solid rgba(232,212,184,0.18);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 200;
+    transition: background 0.25s, border-color 0.25s;
+    flex-shrink: 0;
+  }
+
+  .hamburger:hover {
+    background: rgba(232,212,184,0.12);
+    border-color: var(--orange-bright);
+  }
+
+  .hamburger span {
+    width: 18px;
+    height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,7,6,0.97);
+    backdrop-filter: blur(6px);
+    z-index: 150;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .nav-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-menu-list {
+    list-style: none;
+    text-align: center;
+  }
+
+  .nav-menu-list li {
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .nav-menu-list a {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(34px, 6vw, 52px);
+    letter-spacing: 2px;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 10px 0;
+    transform: translateY(110%);
+    transition: color 0.25s ease;
+  }
+
+  .nav-menu-overlay.open .nav-menu-list a {
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-menu-list li:nth-child(1) a { transition-delay: 0.05s; }
+  .nav-menu-list li:nth-child(2) a { transition-delay: 0.1s; }
+  .nav-menu-list li:nth-child(3) a { transition-delay: 0.15s; }
+  .nav-menu-list li:nth-child(4) a { transition-delay: 0.2s; }
+  .nav-menu-list li:nth-child(5) a { transition-delay: 0.25s; }
+  .nav-menu-list li:nth-child(6) a { transition-delay: 0.3s; }
+
+  .nav-menu-list a:hover { color: var(--orange-bright); }
+
+  .nav-menu-list .num {
+    color: var(--orange-bright);
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 3px;
+    vertical-align: middle;
+    margin-right: 18px;
+    opacity: 0.7;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 130px 6% 60px;
+    overflow: hidden;
+    scroll-margin-top: 0px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    animation: heroZoom 16s ease-out forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.12); }
+    to { transform: scale(1); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(217,113,31,0.12) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(14,12,11,0.55) 0%, rgba(14,12,11,0.78) 55%, rgba(14,12,11,0.97) 100%);
+    z-index: -1;
+  }
+
+  .hero-logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 28px;
+    box-shadow: 0 0 0 3px rgba(232,212,184,0.15), 0 20px 60px rgba(0,0,0,0.6);
+    animation: fadeDown 0.9s ease both, logoFloat 5s ease-in-out infinite 1s;
+    transition: box-shadow 0.4s ease;
+  }
+
+  .hero-logo:hover {
+    box-shadow: 0 0 0 3px rgba(232,132,47,0.4), 0 20px 60px rgba(217,113,31,0.35);
+  }
+
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero-eyebrow {
+    color: var(--orange-bright);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.1s;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 7vw, 88px);
+    line-height: 1.05;
+    letter-spacing: 1px;
+    max-width: 950px;
+    margin-bottom: 26px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.2s;
+  }
+
+  .hero h1 .accent { color: var(--orange-bright); }
+
+  .hero p.sub {
+    color: var(--grey-text);
+    font-family:cursive;
+    font-size: 18px;
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.3s;
+  }
+  .hero p.sub2 {
+    color: white;
+    font-family:fantasy;
+    font-size: 16px;
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.3s;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 56px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.4s;
+  }
+
+  /* ---- TRUST STRIP ---- */
+  .trust-strip {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(232,212,184,0.12);
+    width: 100%;
+    max-width: 780px;
+    animation: fadeDown 0.9s ease both;
+    animation-delay: 0.5s;
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+
+  .trust-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .trust-item .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px;
+    color: var(--cream);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+
+  .trust-item:hover .num { color: var(--orange-bright); }
+
+  .trust-item .num span { color: var(--orange-bright); }
+
+  .trust-item .label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-text);
+  }
+
+  .btn {
+    display: inline-block;
+    position: relative;
+    padding: 17px 36px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-15deg);
+    transition: left 0.5s ease;
+    z-index: -1;
+  }
+
+  .btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    border: 1px solid var(--orange);
+  }
+
+  .btn-primary:hover {
+    background: var(--orange-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(217,113,31,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--cream);
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-2px);
+  }
+
+  .scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--grey-text);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 48px;
+    animation: fadeIn 1s ease both 0.8s;
+  }
+
+  .scroll-hint .line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(180deg, var(--orange-bright), transparent);
+    animation: scrollLine 1.6s ease-in-out infinite;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 0.4; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.4; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+
+  /* ---- SCROLL REVEAL ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-img {
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-img.in-view {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-img {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ---- SECTION DIVIDER LINE ---- */
+  .section-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,212,184,0.25), transparent);
+  }
+
+  /* ---- ABOUT ---- */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    background:
+      radial-gradient(ellipse at 0% 50%, rgba(217,113,31,0.09) 0%, transparent 50%),
+      var(--tone-about);
+    scroll-margin-top: 84px;
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 8%;
+  }
+
+  .about-eyebrow {
+    color: var(--orange-bright);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .about h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    color: var(--grey-text);
+    margin-bottom: 64px;
+  }
+  .about-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.05;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    max-width: 480px;
+  }
+
+  .about-text h2 .accent { color: var(--orange-bright); }
+
+  .about-text p {
+    color: var(--grey-text);
+    font-family:cursive;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 460px;
+    margin-bottom: 18px;
+  }
+
+  .about-founder {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    margin-bottom: 32px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(232,212,184,0.12);
+    max-width: 460px;
+    transition: transform 0.3s ease;
+  }
+
+  .about-founder:hover {
+    transform: translateX(6px);
+  }
+
+  .about-founder img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(232,212,184,0.25);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .about-founder:hover img {
+    border-color: var(--orange-bright);
+    box-shadow: 0 0 0 4px rgba(232,132,47,0.12);
+  }
+
+  .about-founder .f-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+  }
+
+  .about-founder .f-role {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange-bright);
+  }
+
+  .about-image {
+    position: relative;
+    overflow: hidden;
+    height: 70%;
+    min-height: 320px;
+    margin: 100px 100px 100px 8%;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .about-image:hover img {
+    transform: scale(1.06);
+  }
+
+  .about-image-badge {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    background: rgba(14,12,11,0.85);
+    border: 1px solid rgba(232,212,184,0.2);
+    backdrop-filter: blur(6px);
+    padding: 14px 22px;
+    border-radius: 2px;
+    animation: badgeFloat 4.5s ease-in-out infinite;
+  }
+
+  @keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .about-image-badge .yr {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--orange-bright);
+    line-height: 1;
+  }
+
+  .about-image-badge .yr-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-text);
+  }
+
+  @media (max-width: 880px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+    .about-text { padding: 70px 7% 50px; order: 2; }
+    .about-image { height: 260px; order: 1; margin: 0 6%; }
+  }
+
+  @media (max-width: 480px) {
+    .about-text { padding: 56px 6% 40px; }
+    .about-founder { flex-wrap: wrap; }
+  }
+
+  /* ---- ARTIST ---- */
+  .artist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    background:
+      radial-gradient(ellipse at 100% 50%, rgba(212,168,67,0.09) 0%, transparent 50%),
+      var(--tone-artist);
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 84px;
+  }
+
+  .artist-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 8%;
+    position: relative;
+    z-index: 2;
+    order: 2;
+  }
+
+  .artist-deco {
+    position: absolute;
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatDeco 8s ease-in-out infinite;
+  }
+
+  .artist-deco.gun {
+    top: 8%;
+    right: 4%;
+    width: 130px;
+  }
+
+  .artist-deco.diamond {
+    bottom: 8%;
+    right: 38%;
+    width: 90px;
+    animation-delay: -3s;
+  }
+
+  @keyframes floatDeco {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(3deg); }
+  }
+
+  .artist-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(30px, 6vw, 54px);
+    line-height: 1.05;
+    color: var(--gold);
+    margin-bottom: 64px;
+  }
+
+  .artist-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(46px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    color: var(--cream);
+  }
+
+  .artist-text p {
+    color: var(--grey-text);
+    font-family: cursive;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 440px;
+    margin-bottom: 28px;
+  }
+
+  .artist-socials {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+
+  .artist-socials a {
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(232,212,184,0.3);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .artist-socials a:hover {
+    background: var(--orange-bright);
+    border-color: var(--orange-bright);
+    color: #fff;
+    transform: translateY(-4px) scale(1.08) rotate(-6deg);
+    box-shadow: 0 8px 20px rgba(232,132,47,0.35);
+  }
+
+  .artist-socials svg { width: 20px; height: 20px; }
+
+  .artist-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .artist-image {
+    position: relative;
+    overflow: hidden;
+    height: 70%;
+    min-height: 320px;
+    margin: 100px 100px 100px 8%;
+    border-radius: 8px;
+    box-sizing: border-box;
+    order: 1;
+  }
+
+  .artist-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .artist-image:hover img {
+    transform: scale(1.05);
+  }
+
+  .artist-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  @media (max-width: 880px) {
+    .artist {
+      grid-template-columns: 1fr;
+    }
+    .artist-text { padding: 70px 7% 50px; }
+    .artist-image { height: 260px; margin: 0 6%; }
+  }
+
+  @media (max-width: 480px) {
+    .artist-text { padding: 56px 6% 40px; }
+    .artist-buttons { flex-direction: column; width: 100%; }
+    .artist-buttons .btn { width: 100%; text-align: center; }
+  }
+
+  /* ---- TABLET ---- */
+  @media (max-width: 1024px) {
+    .trust-strip { gap: 40px; }
+  }
+
+  /* ---- MOBILE ---- */
+  @media (max-width: 880px) {
+    .navbar { padding: 14px 5%; gap: 12px; }
+    .nav-logo img { width: 40px; height: 40px; }
+    .nav-logo-text { font-size: 18px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 100px 6% 50px; }
+    .trust-strip { gap: 24px 32px; padding-top: 30px; }
+    .hero-buttons { margin-bottom: 40px; gap: 12px; }
+    .btn { padding: 15px 28px; font-size: 13px; }
+    .trust-item { animation: trustFloat 4.5s ease-in-out infinite; }
+    .trust-item:nth-child(1) { animation-delay: 0s; }
+    .trust-item:nth-child(2) { animation-delay: -1.2s; }
+    .trust-item:nth-child(3) { animation-delay: -2.4s; }
+    .trust-item:nth-child(4) { animation-delay: -3.6s; }
+  }
+
+  @keyframes trustFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 480px) {
+    .nav-logo-text { display: none; }
+    .hero-buttons { flex-direction: column; width: 100%; }
+    .hero-buttons .btn { width: 100%; text-align: center; }
+    .trust-strip { gap: 20px 26px; }
+    .trust-item .num { font-size: 28px; }
+  }
+
+  /* ---- SERVICES ---- */
+  .services {
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(217,113,31,0.07) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 100%, rgba(168,49,47,0.06) 0%, transparent 45%),
+      var(--tone-services);
+    padding: 100px 6%;
+    text-align: center;
+    scroll-margin-top: 84px;
+  }
+
+  .services-icon {
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 22px;
+    color: var(--orange-bright);
+  }
+
+  .services-eyebrow {
+    color: var(--orange-bright);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .services h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+    color: var(--cream);
+  }
+
+  .services h2 .accent { color: var(--orange-bright); }
+
+  .services > p {
+    color: var(--grey-text);
+    font-family:cursive;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto 56px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1080px;
+    margin: 0 auto 48px;
+  }
+
+  .service-card {
+    background: #000000;
+    border: 1px solid rgba(232,212,184,0.22);
+    font-family: 'Times New Roman', Times, serif;
+    padding: 44px 32px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    animation: cardFloat 6s ease-in-out infinite;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(232,132,47,0.12), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.05), transparent);
+    transition: left 0.7s ease;
+    z-index: -1;
+  }
+
+  .service-card:nth-child(1) { animation-delay: 0s; }
+  .service-card:nth-child(2) { animation-delay: -2s; }
+  .service-card:nth-child(3) { animation-delay: -4s; }
+
+  .service-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-12px);
+    border-color: rgba(232,132,47,0.45);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 0 1px rgba(232,132,47,0.15);
+  }
+
+  .service-card:nth-child(2):hover {
+    border-color: rgba(212,168,67,0.45);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,168,67,0.15);
+  }
+
+  .service-card:nth-child(3):hover {
+    border-color: rgba(168,49,47,0.45);
+    box-shadow: 0 24px 50px rgba(0,0,0,0.45), 0 0 0 1px rgba(168,49,47,0.15);
+  }
+
+  .service-card:nth-child(2)::before {
+    background: radial-gradient(circle at 50% 0%, rgba(212,168,67,0.12), transparent 70%);
+  }
+
+  .service-card:nth-child(3)::before {
+    background: radial-gradient(circle at 50% 0%, rgba(168,49,47,0.12), transparent 70%);
+  }
+
+  .service-card:hover::before {
+    opacity: 1;
+  }
+
+  .service-card:hover::after {
+    left: 150%;
+  }
+
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card { animation: none; }
+  }
+
+  .service-icon-wrap {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(232,212,184,0.25);
+    border-radius: 50%;
+    color: var(--cream);
+    transition: border-color 0.4s ease, color 0.4s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-card:hover .service-icon-wrap {
+    border-color: var(--orange-bright);
+    color: var(--orange-bright);
+    transform: scale(1.15) rotate(-8deg);
+    box-shadow: 0 0 24px rgba(232,132,47,0.3);
+  }
+
+  .service-card:nth-child(2):hover .service-icon-wrap {
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 24px rgba(212,168,67,0.3);
+  }
+
+  .service-card:nth-child(3):hover .service-icon-wrap {
+    border-color: var(--red-deep);
+    color: #e0635f;
+    box-shadow: 0 0 24px rgba(168,49,47,0.3);
+  }
+
+  .service-icon-wrap svg {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.4s ease;
+  }
+
+  .service-card:hover .service-icon-wrap svg {
+    transform: scale(1.1);
+  }
+
+  .service-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--cream);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+
+  .service-card:hover h3 {
+    color: var(--orange-bright);
+  }
+
+  .service-card:nth-child(2):hover h3 {
+    color: var(--gold);
+  }
+
+  .service-card:nth-child(3):hover h3 {
+    color: #e0635f;
+  }
+
+  .service-card p {
+    color: var(--grey-text);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-price {
+    border-top: 1px solid rgba(232,212,184,0.12);
+    padding-top: 16px;
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.4s ease;
+  }
+
+  .service-card:hover .service-price {
+    border-color: rgba(232,132,47,0.25);
+  }
+
+  .service-price .price-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    margin-bottom: 4px;
+  }
+
+  .service-price .price-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--orange-bright);
+    letter-spacing: 0.5px;
+    transition: letter-spacing 0.3s ease, color 0.3s ease;
+  }
+
+  .service-card:nth-child(2) .price-value { color: var(--gold); }
+  .service-card:nth-child(3) .price-value { color: #d4615d; }
+
+  .service-card:hover .price-value {
+    letter-spacing: 1px;
+  }
+
+  .services-buttons {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 880px) {
+    .services { padding: 80px 6%; }
+    .services-grid { grid-template-columns: 1fr; gap: 22px; }
+    .service-card { animation: cardFloatMobile 5s ease-in-out infinite; }
+  }
+
+  @keyframes cardFloatMobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @media (max-width: 480px) {
+    .services-buttons { flex-direction: column; width: 100%; }
+    .services-buttons .btn { width: 100%; text-align: center; }
+  }
+
+  /* ---- GALLERY ---- */
+  .gallery {
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(212,168,67,0.07) 0%, transparent 50%),
+      var(--tone-gallery);
+    padding: 110px 6% 130px;
+    text-align: center;
+    scroll-margin-top: 84px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-eyebrow {
+    color: var(--orange-bright);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .gallery h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    color: var(--gold);
+    margin-bottom: 64px;
+  }
+
+  .gallery-board {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px 36px;
+    padding: 0 10px;
+  }
+
+  .polaroid {
+    background: #f2efe9;
+    padding: 14px 14px 44px;
+    border-radius: 2px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.55);
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, z-index 0s;
+  }
+
+  .polaroid:hover {
+    transform: scale(1.06) rotate(0deg) !important;
+    box-shadow: 0 22px 44px rgba(0,0,0,0.65);
+    z-index: 20;
+  }
+
+  .polaroid-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .polaroid-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .polaroid-date {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    right: 14px;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: #1a1a1a;
+    text-align: left;
+  }
+
+  .tape {
+    position: absolute;
+    width: 64px;
+    height: 26px;
+    background: rgba(220,215,200,0.55);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    z-index: 5;
+  }
+
+  .tape.tape-top { top: -12px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
+  .tape.tape-corner { top: -10px; right: -18px; transform: rotate(40deg); }
+
+  .sticky-note {
+    position: absolute;
+    width: 96px;
+    background: #f4e98c;
+    color: #2a2a1a;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    line-height: 1.25;
+    padding: 12px 10px 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    z-index: 15;
+    transition: transform 0.3s ease;
+  }
+
+  .sticky-note:hover {
+    transform: scale(1.08) rotate(0deg) !important;
+  }
+
+  .gallery-title-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-title-card h2 {
+    margin: 0;
+  }
+
+  @media (max-width: 880px) {
+    .gallery { padding: 90px 6% 100px; }
+    .gallery-board {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px 24px;
+    }
+    .gallery-title-card {
+      grid-column: 1 / -1;
+      margin-bottom: 10px;
+    }
+    .sticky-note { width: 84px; font-size: 14px; padding: 10px 8px 8px; }
+    .polaroid-photo { animation: polaroidFloat 5s ease-in-out infinite; }
+    .polaroid:nth-child(odd) .polaroid-photo { animation-delay: -2.5s; }
+  }
+
+  @keyframes polaroidFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @media (max-width: 560px) {
+    .gallery-board {
+      grid-template-columns: 1fr;
+      gap: 56px 0;
+      max-width: 320px;
+    }
+    .polaroid:nth-child(n) { transform: none !important; }
+    .sticky-note { position: static; display: inline-block; margin-top: 10px; transform: rotate(-2deg) !important; }
+    .tape.tape-corner { display: none; }
+  }
+
+  /* ---- GALLERY VIDEO ---- */
+  .gallery-video {
+    max-width: 950px;
+    margin: 90px auto 0;
+    background: #f2efe9;
+    padding: 14px 14px 36px;
+    border-radius: 2px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    position: relative;
+  }
+
+  .gallery-video-tape {
+    position: absolute;
+    width: 72px;
+    height: 28px;
+    background: rgba(220,215,200,0.55);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    z-index: 5;
+  }
+
+  .gallery-video video {
+    width: 100%;
+    height: 480px;
+    display: block;
+    background: #000;
+    border-radius: 1px;
+    object-fit: cover;
+  }
+
+  .gallery-video-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: #1a1a1a;
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 560px) {
+    .gallery-video { margin: 70px auto 0; max-width: 100%; }
+    .gallery-video video { height: 320px; }
+  }
+
+  @media (max-width: 880px) and (min-width: 561px) {
+    .gallery-video video { height: 400px; }
+  }
+
+  /* ---- CONTACT ---- */
+  .contact {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(217,113,31,0.09) 0%, transparent 50%),
+      var(--black);
+    padding: 110px 6%;
+    text-align: center;
+    scroll-margin-top: 84px;
+  }
+
+  .contact-eyebrow {
+    color: var(--orange-bright);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .contact h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    letter-spacing: 1px;
+    color: var(--cream);
+    margin-bottom: 48px;
+  }
+
+  .contact-info-grid {
+    max-width: 640px;
+    margin: 0 auto 64px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .contact-info-row {
+    font-size: 16px;
+    font-family: cursive;
+    color: var(--grey-text);
+    line-height: 1.7;
+  }
+
+  .contact-info-row strong {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .contact-info-row a {
+    color: var(--grey-text);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .contact-info-row a:hover {
+    color: var(--orange-bright);
+  }
+
+  .contact-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--orange-bright), transparent);
+    margin: 0 auto 48px;
+  }
+
+  .contact-talk h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: 1px;
+    color: var(--orange-bright);
+    margin-bottom: 18px;
+  }
+
+  .contact-talk p {
+    color: var(--grey-text);
+    font-family: cursive;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto 40px;
+  }
+
+  .contact-socials {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .contact-socials a {
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(232,212,184,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .contact-socials svg { width: 24px; height: 24px; }
+
+  .contact-socials a:hover {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+  }
+
+  .social-call:hover {
+    background: var(--orange-bright);
+    border-color: var(--orange-bright);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(232,132,47,0.4);
+  }
+
+  .social-whatsapp:hover {
+    background: #25D366;
+    border-color: #25D366;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(37,211,102,0.4);
+  }
+
+  .social-insta:hover {
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(238,42,123,0.4);
+  }
+
+  .social-maps:hover {
+    background: #4285F4;
+    border-color: #4285F4;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(66,133,244,0.4);
+  }
+
+  .social-youtube:hover {
+    background: #FF0000;
+    border-color: #FF0000;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(255,0,0,0.4);
+  }
+
+  .footer-strip {
+    text-align: center;
+    padding: 26px 6%;
+    background: var(--black);
+    color: var(--grey-text);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border-top: 1px solid rgba(232,212,184,0.08);
+  }
+
+  .footer-strip .accent { color: var(--orange-bright); }
+
+  @media (max-width: 480px) {
+    .contact { padding: 80px 6%; }
+    .contact-socials a { width: 52px; height: 52px; }
+    .contact-socials svg { width: 22px; height: 22px; }
+  }
+
+  /* ---- BOOKING MODAL ---- */
+  .booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,7,6,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .booking-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .booking-modal {
+    background: var(--black-soft);
+    border: 1px solid rgba(232,212,184,0.15);
+    border-radius: 8px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 40px 36px;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  }
+
+  .booking-overlay.open .booking-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .booking-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(232,212,184,0.15);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .booking-close:hover {
+    background: var(--orange-bright);
+    border-color: var(--orange-bright);
+    color: #fff;
+    transform: rotate(90deg);
+  }
+
+  .booking-eyebrow {
+    color: var(--orange-bright);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .booking-modal h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .booking-modal .booking-sub {
+    color: var(--grey-text);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .booking-field {
+    margin-bottom: 18px;
+  }
+
+  .booking-field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    margin-bottom: 8px;
+  }
+
+  .booking-field input,
+  .booking-field textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(232,212,184,0.18);
+    border-radius: 4px;
+    padding: 13px 14px;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .booking-field textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .booking-field input:focus,
+  .booking-field textarea:focus {
+    outline: none;
+    border-color: var(--orange-bright);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .booking-field input::placeholder,
+  .booking-field textarea::placeholder {
+    color: rgba(184,178,172,0.5);
+  }
+
+  .booking-submit {
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  @media (max-width: 480px) {
+    .booking-modal { padding: 32px 24px; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--orange-bright);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <img src="images/sibilogo.jpeg" alt="SIBI Tattoo Studio logo">
+      <div class="nav-logo-text">SIBI <span>TATTOO STUDIO </span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#artist">Artist</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuOverlay">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="nav-menu-overlay" id="navMenuOverlay">
+    <ul class="nav-menu-list">
+      <li><a href="#home" class="nav-link"><span class="num">01</span>Home</a></li>
+      <li><a href="#about" class="nav-link"><span class="num">02</span>About</a></li>
+      <li><a href="#artist" class="nav-link"><span class="num">03</span>Artist</a></li>
+      <li><a href="#services" class="nav-link"><span class="num">04</span>Services</a></li>
+      <li><a href="#gallery" class="nav-link"><span class="num">05</span>Gallery</a></li>
+      <li><a href="#contact" class="nav-link"><span class="num">06</span>Contact</a></li>
+    </ul>
+  </div>
+
+  <section class="hero" id="home">
+    <div class="hero-bg"><img src="images/home bg.jpeg" alt="SIBI Tattoo Studio interior"></div>
+    <div class="hero-overlay"></div>
+
+    <img src="images/sibilogo.jpeg" alt="SIBI Tattoo Studio" class="hero-logo">
+    <div class="hero-eyebrow">NO.1 Tattoo Studio · Tirupur</div>
+
+    <h1>WHERE ART MEETS SKIN<br><span class="accent">AT SIBI TATTOO</span></h1>
+
+    <p class="sub">Custom tattoos crafted with precision, creativity, and passion. From meaningful first tattoos to bold statement pieces, every design is created to reflect your unique story.</p>
+    <p class="sub2">
+• Custom Designs • Professional Artist • 100% Hygienic Studio • Sterile Equipment • Safe Tattooing
+</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn btn-primary js-open-booking">Book Now</a>
+      <a href="#about" class="btn btn-outline">About Our Studio</a>
+    </div>
+
+    <div class="trust-strip">
+      <div class="trust-item">
+        <div class="num"><span>100</span>%</div>
+        <div class="label">Sterile Equipment</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">5<span>★</span></div>
+        <div class="label">Client Rated</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">500<span>+</span></div>
+        <div class="label">Tattoos Done</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">1<span>-on-1</span></div>
+        <div class="label">Custom Designs</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-text reveal">
+    <h1 class="1234"> ABOUT </h1>
+    <br>
+      <div class="about-eyebrow">Our Story</div>
+      <h2>BUILT ON PASSION,<br><span class="accent">INKED WITH PRIDE</span></h2>
+      <p>SIBI Tattoo Studio opened its doors in Tirupur in 2025, founded by SIBI with one simple goal .— to give every client a tattoo they'll be proud of for life, not just another design off a wall.</p>
+      <p>What started as a one-man passion for the craft has grown into a studio trusted across Tirupur for clean line work, original artwork, and a space where clients feel comfortable from consultation to the final wipe-down.</p>
+      <div class="about-founder">
+        <img src="images/sibifounder.jpeg" alt="SIBI - Founder, SIBI Tattoo Studio">
+        <div>
+          <div class="f-name">SIBI</div>
+          <div class="f-role">Founder &amp; Lead Artist</div>
+        </div>
+      </div>
+      <a href="#artist" class="btn btn-primary">Meet The Artist</a>
+    </div>
+    <div class="about-image reveal-img">
+      <img src="images/aboutsibi.jpeg" alt="Tattoo artist sketching a custom design">
+      <div class="about-image-badge">
+        <div class="yr">2025</div>
+        <div class="yr-label">Est. in Tirupur</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="artist" id="artist">
+    <svg class="artist-deco gun" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 5 L50 35 M40 35 L60 35 L60 50 L40 50 Z M45 50 L45 90 M55 50 L55 90 M35 25 L65 25" stroke="#e8d4b8" stroke-width="2"/>
+      <circle cx="50" cy="15" r="8" stroke="#e8d4b8" stroke-width="2"/>
+    </svg>
+    <svg class="artist-deco diamond" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 35 L50 10 L80 35 L50 90 Z M20 35 L80 35 M35 35 L50 90 M65 35 L50 90 M35 35 L50 10 M65 35 L50 10" stroke="#e8d4b8" stroke-width="1.5"/>
+    </svg>
+
+    <div class="artist-text reveal">
+      <div class="artist-eyebrow">FOUNDER  &amp; ARTIST</div>
+      <h2>SIBI</h2>
+      <p>Founder and lead artist at SIBI Tattoo Studio. Specializes in custom designs and bold traditional work — every piece sketched from scratch to fit the story you're telling and the skin it's going on.</p>
+      <div class="artist-socials">
+        <a href="https://www.instagram.com/sibi_tattoos_?igsh=bmJ3MG5vNmwwdjMy" target="_blank" rel="noopener" aria-label="SIBI on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <div class="artist-buttons">
+        <a href="#" class="btn btn-primary js-open-booking">Book Now</a>
+        <a href="#gallery" class="btn btn-outline">See My Work</a>
+      </div>
+    </div>
+    <div class="artist-image reveal-img">
+      <img src="images/sibifounder.jpeg" alt="SIBI - Founder and Lead Artist at SIBI Tattoo Studio">
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="services-eyebrow reveal">What We Offer</div>
+    <h2 class="reveal">ABOUT OUR <br><span class="accent">SERVICES</span></h2>
+    <p class="reveal">🖤 Black & Grey Tattoos --🎨 Color Tattoos --✨ Fine Line Tattoos--⚓ Traditional Tattoos --👤 Portrait Tattoos --✍️ Lettering & Quotes --🔄 Cover-Up Tattoos -- 🕉️ Spiritual Tattoos --💪 Sleeve Tattoos</p>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            <path d="M2 2l7.586 7.586"/>
+            <circle cx="11" cy="11" r="2"/>
+          </svg>
+        </div>
+        <h3>Custom &amp; Traditional</h3>
+        <p>Got an idea, a sketch, or just a vibe? We'll turn it into a one-of-a-kind tattoo — from bold classic motifs to designs made only for you.</p>
+        <div class="service-price">
+          <div class="price-label">Pricing</div>
+          <div class="price-value">Contact for Pricing</div>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a4 4 0 1 0-8 0c0 1.5.7 2.5 1.5 3.5L12 14l2.5-2.5C15.3 10.5 16 9.5 16 8z"/>
+            <circle cx="12" cy="8" r="1.2" fill="currentColor" stroke="none"/>
+            <path d="M12 14v6"/>
+            <circle cx="12" cy="21" r="1.3"/>
+          </svg>
+        </div>
+        <h3>Piercing</h3>
+        <p>Clean, precise, and safe — done with sterile tools and quality jewellery for ears, nose, and beyond.</p>
+        <div class="service-price">
+          <div class="price-label">Pricing</div>
+          <div class="price-value">Contact for Pricing</div>
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9"/>
+            <path d="M3 12l4-2-1 4z"/>
+            <path d="M12 3v4M16 4.5l-2 3.5M19.5 8l-3.5 2"/>
+          </svg>
+        </div>
+        <h3>Cover-up</h3>
+        <p>Not happy with an old tattoo? We'll redesign and rework it into something you'll actually want to show off.</p>
+        <div class="service-price">
+          <div class="price-label">Pricing</div>
+          <div class="price-value">Contact for Pricing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services-buttons reveal">
+      <a href="#" class="btn btn-primary js-open-booking">Book Now</a>
+      <a href="#gallery" class="btn btn-outline">Browse Our Work</a>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="gallery-eyebrow reveal">Our Work</div>
+    <div class="gallery-board">
+
+      <div class="polaroid reveal" style="transform: rotate(-6deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t1.jpeg" alt="Custom Buddha and lotus tattoo by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">14.03.2025</div>
+        <div class="sticky-note" style="top: -16px; right: -30px; transform: rotate(8deg);">Soft lines,<br>big detail!</div>
+      </div>
+
+      <div class="gallery-title-card reveal">
+        <h2>On The<br>Board</h2>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(5deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t2.jpeg" alt="Bold tribal armband tattoo by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">22.05.2025</div>
+      </div>
+
+      <div class="polaroid reveal" style="transform: rotate(4deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t3.jpeg" alt="Name tattoo with birds and heart by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">02.06.2025</div>
+        <div class="sticky-note" style="bottom: -20px; right: -26px; transform: rotate(-6deg);">First tattoo<br>for her!</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(-4deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t4.jpeg" alt="Warrior and clock realism tattoo by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">11.07.2025</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-2" style="transform: rotate(7deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t5.jpeg" alt="Geometric mandala sleeve tattoo by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">19.08.2025</div>
+      </div>
+
+      <div class="polaroid reveal" style="transform: rotate(-3deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t6.jpeg" alt="Name script tattoo with heart by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">30.09.2025</div>
+        <div class="sticky-note" style="top: -18px; left: -28px; transform: rotate(-9deg);">Clean &amp;<br>simple ✨</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(6deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t7.jpeg" alt="Name tattoo with heartbeat line and heart by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">08.10.2025</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-2" style="transform: rotate(-5deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t8.jpeg" alt="Realistic eyes portrait tattoo by SIBI Tattoo Studio"></div>
+        <div class="polaroid-date">21.11.2025</div>
+        <div class="sticky-note" style="bottom: -18px; left: -24px; transform: rotate(7deg);">Pure<br>realism</div>
+      </div>
+
+      <!-- Placeholder slots below — replace images/placeholder.svg with real tattoo photos later -->
+
+      <div class="polaroid reveal" style="transform: rotate(5deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t9.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">02.12.2025</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(-4deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t10.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">15.12.2025</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-2" style="transform: rotate(6deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t11.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">29.12.2025</div>
+      </div>
+
+      <div class="polaroid reveal" style="transform: rotate(-6deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t12.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">11.01.2026</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(4deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t13.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">24.01.2026</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-2" style="transform: rotate(-3deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t14.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">07.02.2026</div>
+      </div>
+
+      <div class="polaroid reveal" style="transform: rotate(6deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t15.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">14.01.2026</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-1" style="transform: rotate(-5deg);">
+        <div class="tape tape-corner"></div>
+        <div class="polaroid-photo"><img src="images/t16.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">02.03.2026</div>
+      </div>
+
+      <div class="polaroid reveal reveal-delay-2" style="transform: rotate(4deg);">
+        <div class="tape tape-top"></div>
+        <div class="polaroid-photo"><img src="images/t17.jpeg" alt="Tattoo photo coming soon"></div>
+        <div class="polaroid-date">19.04.2026</div>
+      </div>
+
+    </div>
+
+    <div class="gallery-video reveal">
+      <div class="gallery-video-tape"></div>
+      <video src="images/sibivideo.mp4" controls playsinline preload="metadata"></video>
+      <div class="gallery-video-caption">A look inside SIBI Tattoo Studio</div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-eyebrow reveal">Get In Touch</div>
+    <h2 class="reveal">CONTACT INFO</h2>
+
+    <div class="contact-info-grid reveal">
+      <div class="contact-info-row"><strong>Address:</strong> <a href="https://maps.app.goo.gl/R3ikZG6TG24UkFQn6?g_st=ic" target="_blank" rel="noopener">Sibi Tattoos Studio, 709, Siva Complex, Shanthi Theatre Opposite, Tirupur - 641602</a></div>
+      <div class="contact-info-row"><strong>Email:</strong> <a href="mailto:sibitattoo@gmail.com">sibitattoo@gmail.com</a></div>
+      <div class="contact-info-row"><strong>Studio Mobile / WhatsApp:</strong> <a href="tel:+917539906762">+91 75399 06762</a></div>
+      <div class="contact-info-row"><strong>SIBI (Founder &amp; Artist):</strong> <a href="tel:+919952584703">+91 99525 84703</a></div>
+    </div>
+
+    <div class="contact-divider"></div>
+
+    <div class="contact-talk reveal">
+      <h3>Let's Talk!</h3>
+      <p>You've made it to the contact section — that probably means you're ready to get inked. Call, WhatsApp, or message us on Instagram and let's start planning your tattoo.</p>
+      <div class="contact-socials">
+        <a href="tel:+917539906762" class="social-call" aria-label="Call SIBI Tattoo Studio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+        <a href="https://wa.me/917539906762" target="_blank" rel="noopener" class="social-whatsapp" aria-label="Message SIBI Tattoo Studio on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.2-.6.9-.8 1.1-.1.2-.3.2-.5.1-1.5-.7-2.6-1.5-3.5-2.9-.1-.2-.1-.4.1-.5.2-.2.4-.4.6-.6.2-.2.2-.4.1-.6-.1-.2-.5-1.2-.7-1.7-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1 1.6-1 2.5.1 1.2.6 2.4 1.5 3.5 1.4 1.8 3 3.1 5 3.8.6.2 1.1.3 1.7.4.6.1 1.2.1 1.7-.1.6-.2 1.6-1 1.8-1.7.2-.5.2-1.1.1-1.3 0-.1-.2-.2-.3-.1zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.3c1.5.8 3.2 1.3 5.1 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.4.9.9-3.3-.2-.3C3.5 14.4 3 12.7 3 11c0-5 4-9 9-9s9 4 9 9-4 9-9 9z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/sibi_tattoos_?igsh=bmJ3MG5vNmwwdjMy" target="_blank" rel="noopener" class="social-insta" aria-label="SIBI Tattoo Studio on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://maps.app.goo.gl/R3ikZG6TG24UkFQn6?g_st=ic" target="_blank" rel="noopener" class="social-maps" aria-label="SIBI Tattoo Studio location on Google Maps">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@SibiTattoosTirupur" target="_blank" rel="noopener" class="social-youtube" aria-label="SIBI Tattoo Studio on YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c2 .6 9.4.6 9.4.6s7.4 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-strip">
+    &copy; 2026 SIBI Tattoo Studio, Tirupur. All rights reserved. <span class="accent">|</span> Designed with ink &amp; passion.
+  </footer>
+
+  <div class="booking-overlay" id="bookingOverlay">
+    <div class="booking-modal">
+      <div class="booking-close" id="bookingClose" aria-label="Close booking form">&times;</div>
+      <div class="booking-eyebrow">Book Your Session</div>
+      <h3>Let's Get You Inked</h3>
+      <p class="booking-sub">Fill in your details and we'll open WhatsApp with everything ready to send to SIBI Tattoo Studio.</p>
+
+      <form id="bookingForm">
+        <div class="booking-field">
+          <label for="bookName">Name</label>
+          <input type="text" id="bookName" placeholder="Your full name" required>
+        </div>
+        <div class="booking-field">
+          <label for="bookPhone">Phone Number</label>
+          <input type="tel" id="bookPhone" placeholder="Your phone number" required>
+        </div>
+        <div class="booking-field">
+          <label for="bookDate">Preferred Date</label>
+          <input type="date" id="bookDate" required>
+        </div>
+        <div class="booking-field">
+          <label for="bookIdea">Design Idea</label>
+          <textarea id="bookIdea" placeholder="Tell us about the tattoo you have in mind — style, size, placement..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary booking-submit">Send via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    // Hamburger menu (mobile/tablet)
+    const hamburger = document.getElementById('hamburger');
+    const navOverlay = document.getElementById('navMenuOverlay');
+    const navOverlayLinks = document.querySelectorAll('.nav-menu-list a');
+
+    function closeNavMenu() {
+      hamburger.classList.remove('active');
+      navOverlay.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    function openNavMenu() {
+      hamburger.classList.add('active');
+      navOverlay.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    hamburger.addEventListener('click', () => {
+      navOverlay.classList.contains('open') ? closeNavMenu() : openNavMenu();
+    });
+
+    navOverlayLinks.forEach(link => {
+      link.addEventListener('click', closeNavMenu);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navOverlay.classList.contains('open')) closeNavMenu();
+    });
+
+    // Scroll-reveal animations
+    const revealEls = document.querySelectorAll('.reveal, .reveal-img');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Booking modal
+    const bookingOverlay = document.getElementById('bookingOverlay');
+    const bookingClose = document.getElementById('bookingClose');
+    const bookingForm = document.getElementById('bookingForm');
+    const openBookingBtns = document.querySelectorAll('.js-open-booking');
+    const STUDIO_WHATSAPP_NUMBER = '917539906762';
+
+    function openBookingModal() {
+      bookingOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingModal() {
+      bookingOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBookingBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBookingModal();
+      });
+    });
+
+    bookingClose.addEventListener('click', closeBookingModal);
+
+    bookingOverlay.addEventListener('click', (e) => {
+      if (e.target === bookingOverlay) closeBookingModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bookingOverlay.classList.contains('open')) closeBookingModal();
+    });
+
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('bookName').value.trim();
+      const phone = document.getElementById('bookPhone').value.trim();
+      const dateRaw = document.getElementById('bookDate').value;
+      const idea = document.getElementById('bookIdea').value.trim();
+
+      let formattedDate = dateRaw;
+      if (dateRaw) {
+        const d = new Date(dateRaw + 'T00:00:00');
+        formattedDate = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      const message =
+        `✦ NEW BOOKING REQUEST — SIBI TATTOO STUDIO ✦\n\n` +
+        `Hi! I'd like to book a tattoo session with you. Here are my details:\n\n` +
+        `*Name:* ${name}\n` +
+        `*Phone:* ${phone}\n` +
+        `*Preferred Date:* ${formattedDate}\n\n` +
+        `*My Design Idea:*\n${idea}\n\n` +
+        `Looking forward to hearing back from you. Thank you!`;
+
+      const whatsappUrl = `https://wa.me/${STUDIO_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      closeBookingModal();
+      bookingForm.reset();
+    });
+  </script>
+
+</body>
+</html>
